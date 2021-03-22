@@ -68,3 +68,6 @@ void user::print_notifications() {
 		cout << '\n';
 	}
 }
+void user::send_notification(user& A, std::string _date, std::string _time ) {
+	A.new_notification(notification(_date, _time));
+}

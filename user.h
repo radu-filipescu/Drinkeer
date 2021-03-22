@@ -44,5 +44,6 @@ public:
 	void add_fav_drink(drink A);
 	void new_notification(notification A);
 	void print_notifications();
+	void send_notification(user& A, std::string _date, std::string _time );
 };
 
