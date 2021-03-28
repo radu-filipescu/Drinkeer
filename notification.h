@@ -4,7 +4,7 @@
 
 class notification
 {
-	static const std::string message;
+	static const std::string MESSAGE_HEADER;
 	std::string date;
 	std::string time;
 	//place A;

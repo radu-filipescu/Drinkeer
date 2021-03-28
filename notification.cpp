@@ -1,6 +1,6 @@
 #include "notification.h"
 
-const std::string notification::message = "You have been invited at a party on ";
+const std::string notification::MESSAGE_HEADER = "You have been invited at a party on ";
 
 notification::notification(std::string _date, std::string _time) {
 	date = _date;
@@ -8,5 +8,5 @@ notification::notification(std::string _date, std::string _time) {
 }
 
 std::string notification::print_notification() {
-	return notification::message + " " + date + " " + time;
+	return notification::MESSAGE_HEADER + " " + date + " " + time;
 }

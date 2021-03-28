@@ -45,12 +45,12 @@ void user::set_insta(string _link) {
 string user::get_insta() {
 	return instagram_link;
 }
-void user::add_friend(user A) {
+void user::add_friend(user& A) {
 	string _name = A.get_name();
 	if (friends.find(_name) == friends.end())
-		friends[_name] = A;
+		friends[_name] = & A;
 }
-bool user::check_if_friend(user A) {
+bool user::check_if_friend(user& A) {
 	string _name = A.get_name();
 	return (friends.find(_name) != friends.end());
 }
@@ -70,4 +70,16 @@ void user::print_notifications() {
 }
 void user::send_notification(user& A, std::string _date, std::string _time ) {
 	A.new_notification(notification(_date, _time));
+}
+bool user::check_if_drink(std::string s) {
+	return fav_drinks.find(s) != fav_drinks.end();
+}
+
+vector <drink>user::get_fav_drinks() {
+	vector<drink> v;
+
+	for (auto& it : fav_drinks) {
+		v.push_back(it.second);
+	}
+	return v;
 }

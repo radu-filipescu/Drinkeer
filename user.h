@@ -11,7 +11,7 @@ class user
 {
 	string firstname, lastname;
 	int age;
-	unordered_map <string, user> friends;
+	unordered_map <string, user*> friends;
 	unordered_map <string, drink> fav_drinks;
 	string facebook_link;
 	string instagram_link;
@@ -39,8 +39,10 @@ public:
 	string get_fb();
 	void set_insta(string _link);
 	string get_insta();
-	void add_friend(user A);
-	bool check_if_friend(user A);
+	void add_friend(user& A);
+	bool check_if_friend(user& A);
+	bool check_if_drink(std::string s);
+	vector <drink> get_fav_drinks();
 	void add_fav_drink(drink A);
 	void new_notification(notification A);
 	void print_notifications();

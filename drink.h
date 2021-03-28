@@ -12,8 +12,9 @@ class drink
 
 public:
 	drink();
+	drink(std::string _name);
 	bool operator==(const drink& A);
-	void set_name( string A);
+	void set_name( string A );
 	string get_name();
 	void set_type(string A);
 	string get_type();

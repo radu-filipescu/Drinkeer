@@ -4,6 +4,12 @@ drink::drink() {
 	name = type = "";
 	alch_percent = price = 0;
 }
+drink::drink(std::string s) {
+	name = s;
+	type = "";
+	alch_percent = price = 0;
+}
+
 bool drink::operator==(const drink& A) {
 	return name == A.name && alch_percent == A.alch_percent;
 }

@@ -38,54 +38,105 @@ int Read_User_Console(user& A) {
     return 0;
 }
 
+int Read_User_File( ifstream& fin, user& A) {
+    user B;
+
+    string str1, str2;
+    int inpt;
+
+    fin >> str1;
+    fin >> str2;
+
+    B.set_name(str1, str2);
+ 
+    fin >> inpt;
+    if (inpt < 18)
+        return 1;
+    B.set_age(inpt);
+
+
+    getline(fin, str1);
+    getline(fin, str1);
+    if (str1 != "")
+        B.set_fb(str1);
+    getline(fin, str1);
+    if (str1 != "")
+        B.set_insta(str1);
+
+    A = B;
+    return 0;
+}
+
 int main()
 {
-    user A;
-    vector <user> V;
-    int tmp;
-    int error_code = 0;
-    
-    cout << "   Start using Drinkeer\n\n\n";
-    cout << "First create your profile\n";
-    error_code = Read_User_Console(A);
+    ifstream fin("user_database.txt");
 
-    /*while (error_code) {
-        cout << "Bad input. Enter fields again\n";
-        error_code = Read_User_Console(A);
-    }*/
+    int nr_of_users;
+    vector <user> users;
 
-    if (error_code) return 0;
+    fin >> nr_of_users;
 
-    cout << "\nGood, now make some accounts for ";
-    cout << "your friends so you can start having fun\n";
+    for (int i = 1; i <= nr_of_users; ++i) {
+        user tmp;
 
-    cout << "How many friends do you want to enter now?\n";
-    cin >> tmp;
-    for (int i = 0; i < tmp; ++i) {
-        user tmp2;
-        error_code = Read_User_Console(tmp2);
-        V.push_back(tmp2);
+        Read_User_File(fin, tmp);
+
+        int nr_of_drinks;
+        string inpt;
+
+        fin >> nr_of_drinks;
+        for (int i = 1; i <= nr_of_drinks; ++i) {
+            fin >> inpt;
+
+            tmp.add_fav_drink(drink(inpt));
+        }
+
+        users.push_back(tmp);
     }
 
-    cout << "\nOkay, so those are your friends\n";
-    cout << "When do you want? ( dd-mm-yyyy, hh:mm ) \n";
-    
-    string date, time, str1;
-    cin >> date >> time;
-    cout << "Who do you want to invite for a sparkling water on that time?\n\n";
+    cout << "Enter a drink:\n";
+    string inpt;
+    cin >> inpt;
 
-    getline(cin, str1);
-    getline(cin, str1);
-     
-    bool found = false;
-    for (int j = 0; j < V.size(); ++j)
-        if (V[j].get_name() == str1 ) {
-            A.send_notification(V[j], date, time);
-            found = true;
-            cout << "Notification sent!\n";
+    cout << "The users who like " << inpt << " are: \n";
+    for (int i = 0; i < (int)users.size(); ++i)
+        if (users[i].check_if_drink(inpt))
+            cout << users[i].get_name() << "\n";
+
+    // if two users share a common favourite drink,
+    // they'll be friends ( aka. edges in graph )
+
+    for( int i = 0; i < (int)users.size(); ++i )
+        for( int j = i + 1; j < (int)users.size(); ++j ) {
+            vector <drink> v1, v2;
+
+            v1 = users[i].get_fav_drinks();
+            v2 = users[j].get_fav_drinks();
+
+            for( int i2 = 0; i2 < (int)v1.size(); ++i2 )
+                for( int j2 = 0; j2 < (int)v2.size(); ++j2 )
+                    if (v1[i2] == v2[j2]) {
+                        users[i].add_friend( users[j] );
+                        users[j].add_friend( users[i] );
+                        break;
+                    }
+        }
+
+    cout << "\n\nName one of the users: ";
+    getline( cin, inpt );
+    getline( cin, inpt );
+    cout << "Those are his friends: \n";
+
+    int p = 0;
+    for (int i = 0; i < (int)users.size(); ++i )
+        if (users[i].get_name() == inpt) {
+            p = i;
             break;
         }
-    if (!found) cout << "Friend not found\n";
+
+    for (int i = 0; i < (int)users.size(); ++i)
+        if (p != i && users[p].check_if_friend(users[i]))
+            cout << users[i].get_name() << '\n';
 
     return 0;
 }
