@@ -10,7 +10,7 @@ using namespace std;
 class user
 {
 	string firstname, lastname;
-	int age;
+	int age = 18;
 	unordered_map <string, user*> friends;
 	unordered_map <string, drink> fav_drinks;
 	string facebook_link;
