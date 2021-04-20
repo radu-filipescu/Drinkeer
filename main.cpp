@@ -3,6 +3,7 @@
 #include <string>
 #include "user.h"
 #include "drink.h"
+#include "bar.h"
 
 using namespace std;
 
@@ -50,8 +51,16 @@ int Read_User_File( ifstream& fin, user& A) {
     B.set_name(str1, str2);
  
     fin >> inpt;
-    if (inpt < 18)
-        return 1;
+    
+    try {
+        if (inpt < 18)
+            throw 18;
+    }
+    catch(int age){
+        cout << "Sorry, you need to be at least 18 to use this app.\n";
+        cout << "Your age is " << age << '\n';
+    }
+
     B.set_age(inpt);
 
 
@@ -122,21 +131,30 @@ int main()
                     }
         }
 
-    cout << "\n\nName one of the users: ";
-    getline( cin, inpt );
-    getline( cin, inpt );
-    cout << "Those are his friends: \n";
+    cout << "\n\n";
+    // Demonstration of the virtual function "generate_invite()"
 
-    int p = 0;
-    for (int i = 0; i < (int)users.size(); ++i )
-        if (users[i].get_name() == inpt) {
-            p = i;
-            break;
-        }
+    place* ptr;
+    bar *ptr2;
+    bar IrishPub;
 
-    for (int i = 0; i < (int)users.size(); ++i)
-        if (p != i && users[p].check_if_friend(users[i]))
-            cout << users[i].get_name() << '\n';
+    IrishPub.set_name("Irish Pub");
+    IrishPub.set_location("Old Town, Bucharest");
+    
+    IrishPub.add_bar_game("Darts");
+    IrishPub.add_bar_game("Beerpong");
+    IrishPub.add_bar_game("Pinball");
+
+    ptr = &IrishPub;
+    ptr2 = &IrishPub;
+    
+    cout << ptr -> generate_invite() << '\n';
+    cout << ptr2 -> generate_invite() << '\n';
+
+    shared_ptr<notification> smart_ptr(new notification( "21.04.2021", "20:00"));
+
+    cout << '\n';
+    cout << smart_ptr->print_notification() << '\n';
 
     return 0;
 }

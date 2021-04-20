@@ -139,14 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bar.cpp" />
     <ClCompile Include="drink.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="notification.cpp" />
+    <ClCompile Include="place.cpp" />
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bar.h" />
     <ClInclude Include="drink.h" />
     <ClInclude Include="notification.h" />
+    <ClInclude Include="place.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

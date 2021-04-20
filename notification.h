@@ -10,6 +10,7 @@ class notification
 	//place A;
 
 public:
+	notification();
 	notification(std::string _date, std::string _time);
 	std::string print_notification();
 };
