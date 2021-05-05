@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 #include "user.h"
 #include "drink.h"
 #include "bar.h"
@@ -21,7 +22,7 @@ int Read_User_Console(user& A) {
     cout << "Enter age: ";
     cin >> inpt;
     if (inpt < 18) {
-        cout << "Can't make an account if you're underage\n";
+        throw std::out_of_range("Can't make an account if you're underage\n");
         return 1;
     }
     B.set_age(inpt);

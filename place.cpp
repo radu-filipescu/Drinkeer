@@ -41,7 +41,7 @@ bool place::check_if_serves(std::string name) {
 
 bool place::check_if_banned(user* p) {
 	for (int i = 0; i < (int)banned_users.size(); ++i)
-		if (banned_users[i] == p)
+		if ( *banned_users[i] == *p )
 			return true;
 	return false;
 }

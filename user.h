@@ -31,6 +31,10 @@ public:
 		facebook_link = A.facebook_link;
 		instagram_link = A.instagram_link;
 	}
+	bool operator == (const user& A) {
+		return firstname == A.firstname && lastname == A.lastname &&
+			age == A.age;
+	}
 	void set_name(string fname, string lname);
 	string get_name();
 	void set_age(int _age);

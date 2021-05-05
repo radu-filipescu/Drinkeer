@@ -8,7 +8,8 @@ std::vector<std::string> bar::list_of_games() {
 	return bar_games;
 }
 
-std::string bar::generate_invite() {
+std::string bar::generate_invite()
+{
 	std::string str = "You've been invited to " + get_name() + ", on " + get_location() + " street.\n";
 	
 	if (bar_games.size() > 0) {

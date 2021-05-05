@@ -10,6 +10,6 @@ class bar : public place
 public:
 	void add_bar_game(std::string game);
 	std::vector <std::string> list_of_games();
-	std::string generate_invite();
+	std::string generate_invite() override;
 };
 
