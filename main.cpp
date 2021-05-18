@@ -5,8 +5,20 @@
 #include "user.h"
 #include "drink.h"
 #include "bar.h"
+#include "place_factory.h"
+#include <ctime>
 
 using namespace std;
+
+// this template function can compare users, places or drinks
+// using the fact that all those classes have the same name getter
+
+template <class T>
+bool CompareName(T a, T b) {
+    if (a.get_name() < b.get_name()) return -1;
+    if (a.get_name() == b.get_name()) return 0;
+    return 1;
+}
 
 int Read_User_Console(user& A) {
     user B;
@@ -155,7 +167,44 @@ int main()
     shared_ptr<notification> smart_ptr(new notification( "21.04.2021", "20:00"));
 
     cout << '\n';
-    cout << smart_ptr->print_notification() << '\n';
+    cout << smart_ptr->print_notification() << "\n\n";
+
+    /// we'll get the first user ( alphabetically ) using the template function
+
+    user first_user = users[0];
+
+    for (int i = 1; i < (int)users.size(); ++i)
+        if (CompareName(first_user, users[i]) == 1 )
+            first_user = users[i];
+    
+    cout << "First user alphabetically is:\n" << first_user.get_name() << '\n';
+    cout << "His is " << first_user.get_age() << " years old\n\n";
+    
+    // using the 'Factory' design pattern
+    // for making places of a few types
+
+    place_factory Fact;
+
+    place JazzBarLounge = Fact.Jazz_lounge( "JazzBarLounge" );
+    place HopHooligans = Fact.Hipster_bar("Hop Hooligans");
+
+    srand((int)time(0));
+
+    bool already_set[105] = { 0 };
+    for (int i = 1; i <= 5; ++i) {
+        int R = rand() % (int)users.size();
+
+        //if (0 <= R && R < (int)users.size())
+        if (!already_set[R]) {
+            HopHooligans.add_usual_user(&users[R]);
+            already_set[R] = true;
+        }
+    }
+
+    cout << "And the guys who like fancy beer are: \n";
+
+    for (int i = 0; i < (int)HopHooligans.usual_users.size(); ++i)
+        cout << HopHooligans.usual_users[i]->get_name() << '\n';
 
     return 0;
 }

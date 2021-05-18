@@ -151,6 +151,7 @@
     <ClInclude Include="drink.h" />
     <ClInclude Include="notification.h" />
     <ClInclude Include="place.h" />
+    <ClInclude Include="place_factory.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

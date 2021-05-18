@@ -9,9 +9,10 @@ private:
 	std::string name;
 	std::string location;
 	std::vector <std::string> list_of_drinks;
+public:
 	std::vector <user*> usual_users;
 	std::vector <user*> banned_users;
-public:
+
 	place();
 	place(const place& p);
 	std::string get_name();
