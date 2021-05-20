@@ -35,7 +35,6 @@ int Read_User_Console(user& A) {
     cin >> inpt;
     if (inpt < 18) {
         throw std::out_of_range("Can't make an account if you're underage\n");
-        return 1;
     }
     B.set_age(inpt);
     cout << "(optional) Enter a link to a Facebook profile: \n";
