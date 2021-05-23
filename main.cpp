@@ -7,6 +7,7 @@
 #include "bar.h"
 #include "place_factory.h"
 #include <ctime>
+#include <memory>
 
 using namespace std;
 
@@ -14,8 +15,8 @@ using namespace std;
 // using the fact that all those classes have the same name getter
 
 template <class T>
-bool CompareName(T a, T b) {
-    if (a.get_name() < b.get_name()) return -1;
+int CompareName(const T &a, const T &b) {
+    if (a.get_name() < b.get_name() ) return -1;
     if (a.get_name() == b.get_name()) return 0;
     return 1;
 }
@@ -90,6 +91,8 @@ int Read_User_File( ifstream& fin, user& A) {
 
 int main()
 {
+   
+    
     ifstream fin("user_database.txt");
 
     int nr_of_users;
@@ -177,15 +180,15 @@ int main()
             first_user = users[i];
     
     cout << "First user alphabetically is:\n" << first_user.get_name() << '\n';
-    cout << "His is " << first_user.get_age() << " years old\n\n";
+    cout << "He is " << first_user.get_age() << " years old\n\n";
     
     // using the 'Factory' design pattern
     // for making places of a few types
 
-    place_factory Fact;
+    place_factory Factory;
 
-    place JazzBarLounge = Fact.Jazz_lounge( "JazzBarLounge" );
-    place HopHooligans = Fact.Hipster_bar("Hop Hooligans");
+    place JazzBarLounge = Factory.Jazz_lounge( "JazzBarLounge" );
+    place HopHooligans = Factory.Hipster_bar("Hop Hooligans");
 
     srand((int)time(0));
 
@@ -202,8 +205,8 @@ int main()
 
     cout << "And the guys who like fancy beer are: \n";
 
-    for (int i = 0; i < (int)HopHooligans.usual_users.size(); ++i)
-        cout << HopHooligans.usual_users[i]->get_name() << '\n';
+    for (int i = 0; i < (int)HopHooligans.get_usual_users().size(); ++i)
+        cout << HopHooligans.get_usual_users()[i]->get_name() << '\n';
 
     return 0;
 }

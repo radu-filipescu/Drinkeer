@@ -9,10 +9,10 @@ private:
 	std::string name;
 	std::string location;
 	std::vector <std::string> list_of_drinks;
-public:
+protected:
 	std::vector <user*> usual_users;
 	std::vector <user*> banned_users;
-
+public:
 	place();
 	place(const place& p);
 	std::string get_name();
@@ -27,5 +27,6 @@ public:
 	virtual std::string generate_invite() {
 		return "You've been invited to " + name + ", at " + location + ".\n";
 	}
+	std::vector <user*> get_usual_users();
 };
 

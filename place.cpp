@@ -53,3 +53,7 @@ void place::ban_user(user* p) {
 void place::add_usual_user(user* p) {
 	usual_users.push_back(p);
 }
+
+std::vector <user*> place::get_usual_users() {
+	return usual_users;
+}
