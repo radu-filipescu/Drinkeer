@@ -35,8 +35,8 @@ public:
 		return firstname == A.firstname && lastname == A.lastname &&
 			age == A.age;
 	}
-	void set_name(string fname, string lname);
-	string get_name();
+	void set_name (string fname, string lname);
+	string get_name () const;
 	void set_age(int _age);
 	int get_age();
 	void set_fb(string _link);

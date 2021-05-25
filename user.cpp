@@ -24,7 +24,7 @@ void user::set_name(string fname, string lname) {
 	firstname = fname;
 	lastname = lname;
 }
-string user::get_name() {
+string user::get_name() const {
 	return firstname + " " + lastname;
 }
 void user::set_age(int _age) {
